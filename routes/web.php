@@ -15,9 +15,14 @@ Route::get('/', function () {
 
 Route::get('/jogo', [GameController::class, 'jogo'])->name('game');
 
-// Public access to view partner stores and events
+// Public access to view partner stores, events and reviews
 Route::get('/partner-stores', [PartnerStoreController::class, 'index'])->name('partner-stores.index');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
+
+// Public review routes
+Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
 // Protected routes that require authentication
 Route::middleware('auth')->group(function () {
@@ -39,8 +44,8 @@ Route::middleware('auth')->group(function () {
     // Partner Stores routes (except index which is public)
     Route::resource('partner-stores', PartnerStoreController::class)->except(['index']);
     
-    // Reviews are fully protected
-    Route::resource('reviews', ReviewController::class);
+    // Reviews routes (except index, create, and store which are public)
+    Route::resource('reviews', ReviewController::class)->except(['index', 'create', 'store']);
 });
 
 require __DIR__.'/auth.php';

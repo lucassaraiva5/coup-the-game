@@ -24,7 +24,9 @@
                             <th>Rating</th>
                             <th>Review</th>
                             <th>Date</th>
-                            <th>Actions</th>
+                            @auth
+                                <th>Actions</th>
+                            @endauth
                         </tr>
                     </thead>
                     <tbody>
@@ -38,30 +40,32 @@
                                 </td>
                                 <td>{{ Str::limit($review->review, 100) }}</td>
                                 <td>{{ $review->created_at->format('M d, Y') }}</td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="{{ route('reviews.show', $review) }}" 
-                                           class="btn btn-sm btn-info text-white">
-                                            View
-                                        </a>
-                                        <a href="{{ route('reviews.edit', $review) }}" 
-                                           class="btn btn-sm btn-warning text-white">
-                                            Edit
-                                        </a>
-                                        <form action="{{ route('reviews.destroy', $review) }}" 
-                                              method="POST" 
-                                              class="d-inline"
-                                              onsubmit="return confirm('Are you sure you want to delete this review?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                        </form>
-                                    </div>
-                                </td>
+                                @auth
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('reviews.show', $review) }}" 
+                                               class="btn btn-sm btn-info text-white">
+                                                View
+                                            </a>
+                                            <a href="{{ route('reviews.edit', $review) }}" 
+                                               class="btn btn-sm btn-warning text-white">
+                                                Edit
+                                            </a>
+                                            <form action="{{ route('reviews.destroy', $review) }}" 
+                                                  method="POST" 
+                                                  class="d-inline"
+                                                  onsubmit="return confirm('Are you sure you want to delete this review?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                @endauth
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">No reviews found.</td>
+                                <td colspan="{{ Auth::check() ? '5' : '4' }}" class="text-center">No reviews found.</td>
                             </tr>
                         @endforelse
                     </tbody>

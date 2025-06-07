@@ -79,6 +79,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('partner-stores.index') }}">Partner Stores</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('reviews.index') }}">Reviews</a>
+                    </li>
 
                     <!-- Protected Links -->
                     @auth
@@ -86,7 +89,9 @@
                             <a class="nav-link" href="{{ route('cards.index') }}">Manage Cards</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('reviews.index') }}">Manage Reviews</a>
+                            <a class="btn btn-primary ms-2 d-flex align-items-center" href="{{ route('register') }}">
+                                <i class="bi bi-person-plus-fill me-2"></i>Register New User
+                            </a>
                         </li>
                     @endauth
                 </ul>
@@ -95,9 +100,6 @@
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Register</a>
                         </li>
                     @else
                         <li class="nav-item dropdown">

@@ -10,6 +10,11 @@
                     <a href="{{ route('reviews.index') }}" class="btn btn-secondary">Back to List</a>
                 </div>
                 <div class="card-body">
+                    <div class="alert alert-info mb-4">
+                        <i class="bi bi-info-circle me-2"></i>
+                        Share your experience! No account needed to submit a review.
+                    </div>
+
                     <form action="{{ route('reviews.store') }}" method="POST">
                         @csrf
                         
@@ -20,6 +25,7 @@
                                    id="email" 
                                    name="email" 
                                    value="{{ old('email') }}" 
+                                   placeholder="your@email.com"
                                    required>
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -41,6 +47,7 @@
                                     </label>
                                 @endfor
                             </div>
+                            <small class="text-muted">Click on a star to rate</small>
                             @error('rating')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
@@ -52,6 +59,7 @@
                                       id="review" 
                                       name="review" 
                                       rows="4" 
+                                      placeholder="Share your thoughts about the game..."
                                       required>{{ old('review') }}</textarea>
                             @error('review')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -84,10 +92,24 @@
     font-size: 1.5rem;
     color: #ddd;
     margin: 0 2px;
+    transition: color 0.2s ease-in-out;
 }
 
 .star-rating label:hover,
 .star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+    color: #ffc107;
+}
+
+.star-rating:hover label {
+    color: #ddd;
+}
+
+.star-rating:hover label:hover,
+.star-rating:hover label:hover ~ label {
+    color: #ffc107;
+}
+
 .star-rating input:checked ~ label {
     color: #ffc107;
 }
