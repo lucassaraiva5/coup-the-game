@@ -25,7 +25,7 @@
         <td>{{ $card->description }}</td>
         <td>
             @if($card->image)
-                <img src="{{ asset('storage/' . $card->image) }}" alt="{{ $card->title }}" width="100">
+                <img src="{{ asset( $card->image) }}" alt="{{ $card->title }}" width="100">
             @endif
         </td>
         <td>
